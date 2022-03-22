@@ -13,15 +13,15 @@ var exportContent string
 
 func init() {
 	// 获取用户输入
-	// X 信息、Y 信息；甲类、乙类、丁类
+	// eg: "X 信息、Y 信息；甲类、乙类、丁类"
 	flag.StringVar(&exportContent, "export", "", "请输入需要导出的内容！")
 }
 
 func main() {
 
-	// 1.0 初始化 日志、配置资源
-	log.Init()
+	// 1.0 资源初始化（日志、配置）
 	conf.Init()
+	log.Init()
 
 	// 2.0 解析命令行输入
 	flag.Parse()
@@ -33,7 +33,8 @@ func main() {
 		log.Logger.Error(err.Error())
 		return
 	}
-	// todo 4.0 导入excel
+
+	// 4.0 导入excel
 	contents := userInputService.Construct()
 	err = service.NewExportExcel().Export(contents)
 	if err != nil {
@@ -43,6 +44,5 @@ func main() {
 
 	// todo 5.0 异常情况的考虑
 	// todo 控制台打印
-	// todo 校验参数合法性
-	fmt.Println("inputContent:", exportContent)
+	fmt.Println("success")
 }

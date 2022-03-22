@@ -2,13 +2,16 @@ package service
 
 import (
 	"dream/business/dto"
+	"dream/pkg/log"
 	"errors"
 	"fmt"
+	"github.com/spf13/viper"
 	"github.com/xuri/excelize/v2"
+	"go.uber.org/zap"
 	"time"
 )
 
-// 导出输出
+// ExportExcel 导出输出
 type ExportExcel struct {
 }
 
@@ -16,20 +19,20 @@ func NewExportExcel() ExportExcel {
 	return ExportExcel{}
 }
 
-// 导出数据
+// Export 导出数据
 func (ee ExportExcel) Export(contents []dto.ExportItem) (err error) {
 	f := excelize.NewFile()
 
 	// 标题样式
 	headerStyle, err := f.NewStyle(`{"font":{"bold":true,"family":"宋体","size":11}}`)
 	if err != nil {
-		// todo 日志
+		log.Logger.Error("创建标题样式失败")
 		return errors.New("创建标题样式失败")
 	}
 	// 正文样式
 	bodyStyle, err := f.NewStyle(`{"font":{"family":"宋体","size":11}}`)
 	if err != nil {
-		// todo 日志
+		log.Logger.Error("创建正文样式失败")
 		return errors.New("创建正文样式失败")
 	}
 
@@ -63,8 +66,8 @@ func (ee ExportExcel) Export(contents []dto.ExportItem) (err error) {
 
 	// 生成Excel；暂不考虑文件名重复的情况（可以新增随机数）
 	fileName := time.Now().Format("220060102150405") + ".xlsx"
-	if err := f.SaveAs("./" + fileName); err != nil {
-		fmt.Println(err)
+	if err := f.SaveAs(viper.GetString("excel.path") + fileName); err != nil {
+		log.Logger.Error("报错文件失败", zap.Error(err))
 	}
 	return err
 }

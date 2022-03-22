@@ -22,5 +22,8 @@ func TestNewExportExcel(t *testing.T) {
 			Desc:     "X 信息-甲类操作-2",
 		},
 	}
-	NewExportExcel().Export(contents)
+	err := NewExportExcel().Export(contents)
+	if err != nil {
+		t.Error(err)
+	}
 }

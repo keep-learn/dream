@@ -1,3 +1,11 @@
 [log]
-level = "info"
-path = "~/"
+#日志级别 debug  info error dpanic panic
+level = "debug"
+#日志路径
+path = "/tmp/test/dream.log"
+#单个日志文件的大小
+logsize = 100
+
+[excel]
+#excel 文件的导出路径
+path = "/tmp/test/"
