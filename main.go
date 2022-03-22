@@ -13,7 +13,8 @@ var exportContent string
 
 func init() {
 	// 获取用户输入
-	flag.StringVar(&exportContent, "export", "X 信息、Y 信息；甲类、乙类、丁类", "请输入需要导出的内容！")
+	// X 信息、Y 信息；甲类、乙类、丁类
+	flag.StringVar(&exportContent, "export", "", "请输入需要导出的内容！")
 }
 
 func main() {

@@ -66,7 +66,7 @@ func (ui *UserInput) Construct() (data []dto.ExportItem) {
 			}
 			tmp.Desc = fmt.Sprintf("%s-%s-%d", rank, typeInfo, typeIndex)
 			seq++
-			typeIndex++
+			//typeIndex++
 			data = append(data, tmp)
 		}
 	}
