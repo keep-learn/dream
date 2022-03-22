@@ -1,0 +1,26 @@
+package service
+
+import (
+	"dream/business/dto"
+	"testing"
+)
+
+func TestNewExportExcel(t *testing.T) {
+	contents := []dto.ExportItem{
+		{
+			Rank:     "X信息",
+			Seq:      1,
+			Type:     "甲类",
+			Priority: 99,
+			Desc:     "X 信息-甲类操作-1",
+		},
+		{
+			Rank:     "",
+			Seq:      2,
+			Type:     "甲类",
+			Priority: 99,
+			Desc:     "X 信息-甲类操作-2",
+		},
+	}
+	NewExportExcel().Export(contents)
+}
