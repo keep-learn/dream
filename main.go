@@ -1,7 +1,6 @@
 package main
 
 import (
-	"dream/business/dto"
 	"dream/business/service"
 	"dream/pkg/conf"
 	"dream/pkg/log"
@@ -14,28 +13,27 @@ var exportContent string
 
 func init() {
 	// 获取用户输入
-	flag.StringVar(&exportContent, "export", "", "请输入需要导出的内容！")
+	flag.StringVar(&exportContent, "export", "X 信息、Y 信息；甲类、乙类、丁类", "请输入需要导出的内容！")
 }
 
 func main() {
 
-	// 1.0 解析命令行输入
+	// 1.0 初始化 日志、配置资源
+	log.Init()
+	conf.Init()
+
+	// 2.0 解析命令行输入
 	flag.Parse()
 
-	// 2.0 校验用户输入
-	userInput := service.NewInput(exportContent)
-	err := userInput.Check()
+	// 3.0 校验用户输入
+	userInputService := service.NewInput(exportContent)
+	err := userInputService.Check()
 	if err != nil {
 		log.Logger.Error(err.Error())
 		return
 	}
-
-	// 3.0 初始化 日志、配置资源
-	log.Init()
-	conf.Init()
-
 	// todo 4.0 导入excel
-	contents := make([]dto.ExportItem, 0)
+	contents := userInputService.Construct()
 	err = service.NewExportExcel().Export(contents)
 	if err != nil {
 		// todo 日志

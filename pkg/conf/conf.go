@@ -7,10 +7,7 @@ import (
 
 // 初始化日志
 func Init() {
-	viper.SetConfigName("config")
-	viper.SetConfigType("toml")
-	viper.AddConfigPath(".")
-	viper.SetDefault("redis.port", 6381)
+	viper.SetConfigFile("./config/default.toml")
 	err := viper.ReadInConfig()
 	if err != nil {
 		log.Logger.Fatal("初始化资源失败！")
