@@ -8,8 +8,20 @@
 ## Install
 ```shell
 # 日志和excel的路径（可以在配置文件修改）
+go mod tidy
 mkdir -p /tmp/test
+go run main.go -export "X 信息、Y 信息；甲类、乙类"
 ```
+
+## 输入、输出演示
+输入：
+```shell
+go run main.go -export "X 信息、Y 信息；甲类、乙类"
+```
+
+生成的excel截图：
+![demo](./images/img_1.png)
+
 
 ## 项目结构
 
@@ -42,17 +54,9 @@ mkdir -p /tmp/test
         └── log.go
 ```
 
-## 输入、输出演示
-输入：
-```shell
-go run main.go -export "X 信息、Y 信息；甲类、乙类"
-```
+[//]: # (### 演示视频)
 
-生成的excel截图：
-![demo](./images/img_1.png)
-
-### 演示视频
-![demo](./images/Kapture%202022-03-22%20at%2023.37.26.gif)
+[//]: # (![demo]&#40;./images/Kapture%202022-03-22%20at%2023.37.26.gif&#41;)
 
 
 ### TODO
