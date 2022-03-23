@@ -17,13 +17,13 @@ func RunExportExcel(args []string) {
 
 	// 4.0 导入excel
 	contents := userInputService.Construct()
-	err = NewExportExcel().Export(contents)
+	result, err := NewExportExcel().Export(contents)
 	if err != nil {
-		// todo 日志
+		log.Logger.Error(err.Error())
 		return
 	}
 
 	// todo 5.0 异常情况的考虑
 	// todo 控制台打印
-	fmt.Println("success")
+	fmt.Println("生成的Excel文件path:", result.ExcelPath)
 }

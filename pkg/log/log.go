@@ -5,7 +5,6 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
-	"os"
 )
 
 var (
@@ -38,11 +37,11 @@ func Init() {
 
 	// 设置日志级别
 	atomicLevel := zap.NewAtomicLevel()
-	//atomicLevel.SetLevel(getLogLevel())
+	atomicLevel.SetLevel(getLogLevel())
 
 	core := zapcore.NewCore(
-		zapcore.NewJSONEncoder(encoderConfig),                          // 编码器配置
-		zapcore.NewMultiWriteSyncer(zapcore.AddSync(&hook), os.Stdout), // 打印到文件
+		zapcore.NewJSONEncoder(encoderConfig),               // 编码器配置
+		zapcore.NewMultiWriteSyncer(zapcore.AddSync(&hook)), // 打印到文件
 		atomicLevel, // 日志级别
 	)
 	// 开启开发模式，堆栈跟踪

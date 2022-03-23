@@ -20,20 +20,22 @@ func NewExportExcel() ExportExcel {
 }
 
 // Export 导出数据
-func (ee ExportExcel) Export(contents []dto.ExportItem) (err error) {
-	f := excelize.NewFile()
+func (ee ExportExcel) Export(contents []dto.ExportItem) (result dto.ExportResult, err error) {
 
+	f := excelize.NewFile()
 	// 标题样式
 	headerStyle, err := f.NewStyle(`{"font":{"bold":true,"family":"宋体","size":11}}`)
 	if err != nil {
 		log.Logger.Error("创建标题样式失败")
-		return errors.New("创建标题样式失败")
+		err = errors.New("创建标题样式失败")
+		return
 	}
 	// 正文样式
 	bodyStyle, err := f.NewStyle(`{"font":{"family":"宋体","size":11}}`)
 	if err != nil {
 		log.Logger.Error("创建正文样式失败")
-		return errors.New("创建正文样式失败")
+		err = errors.New("创建正文样式失败")
+		return
 	}
 
 	// 创建一个sheet
@@ -65,9 +67,12 @@ func (ee ExportExcel) Export(contents []dto.ExportItem) (err error) {
 	f.SetCellStyle(sheetName, "A2", fmt.Sprintf("E%d", index), bodyStyle)
 
 	// 生成Excel；暂不考虑文件名重复的情况（可以新增随机数）
-	fileName := time.Now().Format("220060102150405") + ".xlsx"
-	if err := f.SaveAs(viper.GetString("excel.path") + fileName); err != nil {
+	fullPath := viper.GetString("excel.path") + time.Now().Format("220060102150405") + ".xlsx"
+	if err := f.SaveAs(fullPath); err != nil {
 		log.Logger.Error("报错文件失败", zap.Error(err))
 	}
-	return err
+	result = dto.ExportResult{
+		ExcelPath: fullPath,
+	}
+	return
 }

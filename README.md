@@ -15,7 +15,8 @@
 ```shell
 # 日志和excel的路径（可以在配置文件修改）
 go mod tidy
-mkdir -p /tmp/test
+mkdir -p /tmp/log
+mkdir -p /tmp/excel
 make build
 bin/dream export "X 信息、Y 信息；甲类、乙类"
 ```
