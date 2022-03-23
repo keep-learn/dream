@@ -62,5 +62,7 @@ go run main.go -export "X 信息、Y 信息；甲类、乙类"
 ### TODO
 - [x] 使用viper，项目读取config配置
 - [x] 使用lumberjack进行日志拆分
-- [ ] 完善细节...
+- [ ] 完善 README 文件
+- [ ] 输入、输出新增友好提示、错误纠正功能
+- [ ] 日志和Excel文件分开存储
 
