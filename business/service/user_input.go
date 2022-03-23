@@ -11,26 +11,25 @@ import (
 
 // UserInput 处理用户输入的信息
 type UserInput struct {
-	Input   string   // 输入的字符串
+	Input   []string // 输入的字符串
 	Ranking []string // 等级
 	Types   []string // 类型
 }
 
-func NewInput(input string) *UserInput {
-	return &UserInput{Input: input}
+func NewInput(args []string) *UserInput {
+	return &UserInput{Input: args}
 }
 
 // Check check 用户的输入
 // todo 安全相关的调试
 func (ui *UserInput) Check() (err error) {
-	log.Logger.Info("start check", zap.String("input", ui.Input))
+	log.Logger.Info("start check", zap.Any("input", ui.Input))
 	// todo 暂不考虑并发问题
-	if ui.Input == "" {
-		log.Logger.Warn("user input is empty", zap.String("input", ui.Input))
-		return errors.New("输入内容为空")
+	if len(ui.Input) != 1 {
+		log.Logger.Warn("请输入正确的参数")
+		return errors.New("请输入正确的参数")
 	}
-
-	inputArr := strings.Split(ui.Input, "；")
+	inputArr := strings.Split(ui.Input[0], "；")
 	if len(inputArr) != 2 {
 		log.Logger.Warn("需要输入等级和类型")
 		return errors.New("需要输入等级和类型")

@@ -1,22 +1,29 @@
-## 项目概要
+[toc]
+
+## 项目简介
+* 动态读取用户输入并生成指定格式的Excel
+* 程序是一个命令行小工具，安全、可靠、高性能
+
+## 技术栈简介
 * 日志使用 [zap](https://github.com/uber-go/zap)
-* 日志分割使用 [lumberjack](gopkg.in/natefinch/lumberjack.v2)
+* 日志分割使用 [lumberjack](https://github.com/natefinch/lumberjack)
 * 配置使用 [viper](https://github.com/spf13/viper)
 * Excel使用 [excelize](https://github.com/qax-os/excelize)
-* 命令行使用go自带的 flag
+* 命令行使用 [cobra](import "github.com/spf13/cobra")
 
-## Install
+## 安装
 ```shell
 # 日志和excel的路径（可以在配置文件修改）
 go mod tidy
 mkdir -p /tmp/test
-go run main.go -export "X 信息、Y 信息；甲类、乙类"
+make build
+bin/dream export "X 信息、Y 信息；甲类、乙类"
 ```
 
 ## 输入、输出演示
 输入：
 ```shell
-go run main.go -export "X 信息、Y 信息；甲类、乙类"
+bin/dream export "X 信息、Y 信息；甲类、乙类"
 ```
 
 生成的excel截图：
@@ -62,7 +69,8 @@ go run main.go -export "X 信息、Y 信息；甲类、乙类"
 ### TODO
 - [x] 使用viper，项目读取config配置
 - [x] 使用lumberjack进行日志拆分
-- [ ] 完善 README 文件
-- [ ] 输入、输出新增友好提示、错误纠正功能
+- [x] 完善 README 文件
+- [x] 输入、输出新增友好提示、错误纠正功能
 - [ ] 日志和Excel文件分开存储
+- [ ] 应用Validator进行参数校验
 
