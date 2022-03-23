@@ -4,12 +4,13 @@
 * 动态读取用户输入并生成指定格式的Excel
 * 程序是一个命令行小工具，安全、可靠、高性能
 
-## 技术栈简介
+## 技术栈
 * 日志使用 [zap](https://github.com/uber-go/zap)
 * 日志分割使用 [lumberjack](https://github.com/natefinch/lumberjack)
 * 配置使用 [viper](https://github.com/spf13/viper)
 * Excel使用 [excelize](https://github.com/qax-os/excelize)
-* 命令行使用 [cobra](import "github.com/spf13/cobra")
+* 命令行使用 [cobra](https://github.com/spf13/cobra")
+* 命令行输出 [color](https://github.com/fatih/color)
 
 ## 安装
 ```shell
@@ -21,13 +22,15 @@ make build
 bin/dream export "X 信息、Y 信息；甲类、乙类"
 ```
 
-## 输入、输出演示
+## 演示
 输入：
 ```shell
 bin/dream export "X 信息、Y 信息；甲类、乙类"
 ```
-
-生成的excel截图：
+1. 控制台结果
+![demo](./images/demo02.png)
+   
+2. 生成的excel截图：
 ![demo](./images/img_1.png)
 
 
@@ -72,6 +75,6 @@ bin/dream export "X 信息、Y 信息；甲类、乙类"
 - [x] 使用lumberjack进行日志拆分
 - [x] 完善 README 文件
 - [x] 输入、输出新增友好提示、错误纠正功能
-- [ ] 日志和Excel文件分开存储
+- [x] 日志和Excel文件分开存储
 - [ ] 应用Validator进行参数校验
 

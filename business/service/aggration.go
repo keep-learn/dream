@@ -2,7 +2,7 @@ package service
 
 import (
 	"dream/pkg/log"
-	"fmt"
+	"github.com/fatih/color"
 )
 
 // RunExportExcel  执行导出Excel的命令
@@ -20,10 +20,15 @@ func RunExportExcel(args []string) {
 	result, err := NewExportExcel().Export(contents)
 	if err != nil {
 		log.Logger.Error(err.Error())
+		color.Red("导出Excel异常：", err.Error())
 		return
 	}
 
 	// todo 5.0 异常情况的考虑
 	// todo 控制台打印
-	fmt.Println("生成的Excel文件path:", result.ExcelPath)
+	d := color.New(color.FgWhite, color.Bold)
+	d.Printf("恭喜您导出成功~ \n")
+
+	c := color.New(color.FgCyan).Add(color.Underline)
+	c.Println("生成的Excel文件path:", result.ExcelPath)
 }

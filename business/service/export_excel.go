@@ -68,8 +68,10 @@ func (ee ExportExcel) Export(contents []dto.ExportItem) (result dto.ExportResult
 
 	// 生成Excel；暂不考虑文件名重复的情况（可以新增随机数）
 	fullPath := viper.GetString("excel.path") + time.Now().Format("220060102150405") + ".xlsx"
-	if err := f.SaveAs(fullPath); err != nil {
-		log.Logger.Error("报错文件失败", zap.Error(err))
+	if saveErr := f.SaveAs(fullPath); saveErr != nil {
+		log.Logger.Error("报错文件失败", zap.Error(saveErr))
+		err = saveErr
+		return
 	}
 	result = dto.ExportResult{
 		ExcelPath: fullPath,

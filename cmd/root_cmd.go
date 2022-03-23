@@ -3,7 +3,7 @@ package cmd
 import (
 	"dream/pkg/conf"
 	"dream/pkg/log"
-	"fmt"
+	"github.com/fatih/color"
 	"github.com/spf13/cobra"
 	"os"
 )
@@ -40,7 +40,7 @@ func onInitialize() {
 
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {
-		fmt.Println(err)
+		color.Red("异常：", err.Error())
 		os.Exit(1)
 	}
 }
