@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"dream/business/dto"
 	"testing"
 )
@@ -22,7 +23,7 @@ func TestNewExportExcel(t *testing.T) {
 			Desc:     "X 信息-甲类操作-2",
 		},
 	}
-	err := NewExportExcel().Export(contents)
+	_, err := NewExportExcel().Export(context.Background(), contents)
 	if err != nil {
 		t.Error(err)
 	}

@@ -9,3 +9,7 @@ logsize = 100
 [excel]
 #excel 文件的导出路径
 path = "/tmp/excel/"
+
+[safe]
+#用户输入限制（字符个数）
+maxInputLen = 50

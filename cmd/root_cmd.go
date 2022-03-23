@@ -40,7 +40,7 @@ func onInitialize() {
 
 func Execute() {
 	if err := RootCmd.Execute(); err != nil {
-		color.Red("异常：", err.Error())
+		color.Red("异常：%s", err.Error())
 		os.Exit(1)
 	}
 }

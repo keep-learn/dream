@@ -68,7 +68,7 @@ func (ee ExportExcel) Export(ctx context.Context, contents []dto.ExportItem) (re
 	f.SetCellStyle(sheetName, "A2", fmt.Sprintf("E%d", index), bodyStyle)
 
 	// 生成Excel；暂不考虑文件名重复的情况（可以新增随机数）
-	fullPath := viper.GetString("excel.path") + time.Now().Format("220060102150405") + ".xlsx"
+	fullPath := viper.GetString("excel.path") + time.Now().Format("20060102150405") + ".xlsx"
 	if saveErr := f.SaveAs(fullPath); saveErr != nil {
 		log.New().WithContext(ctx).Error("报错文件失败", zap.Error(saveErr))
 		err = saveErr

@@ -1,16 +1,17 @@
 package service
 
 import (
+	"context"
 	"fmt"
 	"testing"
 )
 
 // Construct
 func TestUserInput_Construct(t *testing.T) {
-
-	input := "X 信息、Y 信息；甲类、乙类、丁类"
+	ctx := context.Background()
+	input := []string{"X 信息、Y 信息；甲类、乙类、丁类"}
 	inputService := NewInput(input)
-	err := inputService.Check()
+	err := inputService.Check(ctx)
 	if err != nil {
 		t.Error(err)
 		return
