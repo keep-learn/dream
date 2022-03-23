@@ -1,6 +1,7 @@
 package log
 
 import (
+	"context"
 	"github.com/spf13/viper"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -10,9 +11,6 @@ import (
 )
 
 var (
-	// 日志全局对象
-	Logger *zap.Logger
-
 	// 日志级别map
 	levelType = map[string]zapcore.Level{
 		"debug":  zap.DebugLevel,
@@ -26,6 +24,20 @@ var (
 	// 执行一次
 	once sync.Once
 )
+
+// trace_id
+const TraceID = "trace_id"
+
+// Logger 标准日志
+type Logger struct {
+	*zap.Logger
+}
+
+var logger = new(Logger)
+
+func New() *Logger {
+	return logger
+}
 
 // Init 初始化日志
 func Init() {
@@ -74,8 +86,18 @@ func Init() {
 		// 开启开发模式，堆栈跟踪
 		caller := zap.AddCaller()
 		// 构造日志
-		Logger = zap.New(core, caller)
+		logger.Logger = zap.New(core, caller)
 	})
+}
+
+// WithContext 从上下文中获取 trace-id 并在日志中加入 trace-id 字段
+func (l Logger) WithContext(c context.Context) Logger {
+	timestamp, ok := c.Value(TraceID).(int64)
+	if !ok {
+		timestamp = 0
+	}
+	l.Logger = l.With(zap.Int64(TraceID, timestamp))
+	return l
 }
 
 // timeEncoder 日志时间格式化

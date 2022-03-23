@@ -1,8 +1,11 @@
 package cmd
 
 import (
+	"context"
 	"dream/business/service"
+	"dream/pkg/log"
 	"github.com/spf13/cobra"
+	"time"
 )
 
 // ExportExcelCmd  导出excel的命令
@@ -17,6 +20,7 @@ var ExportExcelCmd = &cobra.Command{
 	},
 	Run: func(cmd *cobra.Command, args []string) {
 		// 启动入口
-		service.RunExportExcel(args)
+		ctx := context.WithValue(context.Background(), log.TraceID, time.Now().UnixNano())
+		service.RunExportExcel(ctx, args)
 	},
 }

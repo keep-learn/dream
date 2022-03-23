@@ -1,6 +1,7 @@
 package service
 
 import (
+	"context"
 	"dream/business/dto"
 	"dream/pkg/log"
 	"errors"
@@ -22,16 +23,16 @@ func NewInput(args []string) *UserInput {
 
 // Check check 用户的输入
 // todo 安全相关的调试
-func (ui *UserInput) Check() (err error) {
-	log.Logger.Info("start check", zap.Any("input", ui.Input))
+func (ui *UserInput) Check(ctx context.Context) (err error) {
+	log.New().WithContext(ctx).Info("start check", zap.Any("input", ui.Input))
 	// todo 暂不考虑并发问题
 	if len(ui.Input) != 1 {
-		log.Logger.Warn("请输入正确的参数")
+		log.New().WithContext(ctx).Warn("请输入正确的参数")
 		return errors.New("请输入正确的参数")
 	}
 	inputArr := strings.Split(ui.Input[0], "；")
 	if len(inputArr) != 2 {
-		log.Logger.Warn("需要输入等级和类型")
+		log.New().WithContext(ctx).Warn("需要输入等级和类型")
 		return errors.New("需要输入等级和类型")
 	}
 
@@ -39,7 +40,7 @@ func (ui *UserInput) Check() (err error) {
 	ui.Ranking = strings.Split(inputArr[0], "、")
 	ui.Types = strings.Split(inputArr[1], "、")
 	if len(ui.Ranking) == 0 || len(ui.Types) == 0 {
-		log.Logger.Warn("等级或类型信息异常")
+		log.New().WithContext(ctx).Warn("等级或类型信息异常")
 		return errors.New("等级或类型信息异常，请检查（请使用中文符合'、' 和 '；'）")
 	}
 	return
